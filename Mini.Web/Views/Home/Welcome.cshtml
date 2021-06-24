@@ -1,0 +1,80 @@
+﻿@{ Layout = "~/Views/Shared/_FormGray.cshtml"; }
+<div class="wrapper wrapper-content">
+    MainIndex
+    <button id="btn">验证jwt</button>
+</div>
+
+
+<script>
+    $(function () {
+        $("#btn").click(function ()
+        {
+            pack.ajax({
+                url: '@Url.Content("~/Home/LoginOff")',
+                type: "get",
+                success: function (obj) {
+                    if (obj.status == 200) {
+                        toastr.success(obj.msg);
+                    }
+                    else {
+                        toastr.error(obj.msg);
+                    }
+                }
+            });
+            @*$.ajax({
+                url: '@Url.Content("~/Home/LoginOff")',
+                type: "get",
+                beforeSend: function (xhr) {
+                      xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+                },
+                success: function (obj)
+                {
+                    if (obj.status == 200)
+                    {
+                        localStorage.setItem("UserInfo", JSON.stringify(obj.response));
+                        toastr.success(obj.msg);
+                        setTimeout('redirectToIndex()', 2000);
+                    }
+                    else
+                    {
+                        toastr.error(obj.msg);
+                    }
+                },
+                statusCode:
+                {
+                    400: function (XMLHttpRequest, textStatus, errorThrown)
+                    {
+                        var str = '';
+                        var errorInfo = JSON.parse(XMLHttpRequest.responseText);
+                        console.log(XMLHttpRequest);
+                        if (errorInfo.ModelState != undefined && errorInfo.ModelState.length != 0) {
+                            $.each(errorInfo.ModelState, function (n, val) { str += val[0] + ';<br>'; });
+                            layer.alert(str, { icon: 2, title: '错误提示' });
+                        }
+                    },
+                    401: function ()
+                    {
+                        toastr.error('登录超时，请重新登录！');
+                    },
+                    403: function ()
+                    {
+                        toastr.error('没有访问权限！');
+                    },
+                    404: function (XMLHttpRequest, textStatus, errorThrown)
+                    {
+                        var str = ''; var errorInfo = JSON.parse(XMLHttpRequest.responseText);
+                        str += 'code:' + errorInfo.code + ';<br>' + 'message:' + errorInfo.message;
+                        toastr.error(str);
+                    },
+                    500: function (XMLHttpRequest, textStatus, errorThrown)
+                    {
+                        var str = '';
+                        var errorInfo = JSON.parse(XMLHttpRequest.responseText);
+                        str += 'code:' + errorInfo.code + ';<br>' + 'message:' + errorInfo.message;
+                        toastr.error(str);
+                    }
+                }
+            });*@
+        });
+    });
+</script>

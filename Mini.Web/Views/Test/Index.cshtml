@@ -1,0 +1,180 @@
+﻿
+@{
+    ViewData["Title"] = "合同统计";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles
+{
+    <link href="~/bootstrap/css/bootstrap-table.min.css" rel="stylesheet" />
+    <style>
+        .find {
+            border-bottom: 1px solid #ddd;
+            margin-left: -15px;
+            padding-bottom: 5px;
+            padding-left: 15px;
+        }
+
+        .row {
+            padding: 0px 0px 5px 5px;
+        }
+
+        .col-sm-3 {
+            padding-left: 0px;
+        }
+    </style>
+}
+
+<div class="find">
+    <div class="row">
+    </div>
+    <div class="row">
+        <div class="col-sm-3 ">
+            @Html.TextBox("Name", "", new { @class = "form-control FindName", @placeholder = "材料名称" })
+        </div>
+        <div class="col-sm-3 ">
+            @Html.TextBox("Number", "", new { @class = "form-control FindName", @placeholder = "材料编号" })
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-3 ">
+        </div>
+        <div class="col-sm-3 ">
+            <input class="btn btn-primary" type="button" id="search" value="查询" style="margin-right:5px">
+            <button class="btn" id="reset">重置</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div id="toolbar">
+        <div class="btn-group">
+            <button id="add" class="btn btn-default">
+                <i class="glyphicon glyphicon-plus"></i>
+            </button>
+            <button id="edit" class="btn btn-default">
+                <i class="glyphicon glyphicon-pencil"></i>
+            </button>
+            <button id="delete" class="btn btn-default">
+                <i class="glyphicon glyphicon-trash"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <table id="mtab" class="table-bordered table-striped table-hover"
+           data-classes="table "
+           data-show-refresh="true"
+           data-show-columns="true"
+           data-toolbar="#toolbar"></table>
+</div>
+
+@section Scripts
+{
+    <script>
+
+        $('#mtab').bootstrapTable({
+            method: 'get',
+            url: "user/getUserListPage",//请求路径
+            striped: true, //是否显示行间隔色
+            pageNumber: 1, //初始化加载第一页
+            pagination: true,//是否分页
+            sidePagination: 'client',//server:服务器端分页|client：前端分页
+            pageSize: 4,//单页记录数
+            pageList: [5, 10, 20, 30],//可选择单页记录数
+            showRefresh: true,//刷新按钮
+            queryParams: function (params) {//上传服务器的参数
+                var temp = {//如果是在服务器端实现分页，limit、offset这两个参数是必须的
+                    limit: params.limit, // 每页显示数量
+                    offset: params.offset, // SQL语句起始索引
+                    //page : (params.offset / params.limit) + 1, //当前页码
+
+                    Name: $('#search_name').val(),
+                    Tel: $('#search_tel').val()
+                };
+                return temp;
+            },
+            columns: [
+
+                [
+                    {
+                        "title": "洗衣机统计表",
+                        "halign": "center",
+                        "align": "center",
+                        "colspan": 5
+                    }
+                ],
+                [
+                    {
+                        field: 'name',
+                        title: "功能分组",
+                        valign: "middle",
+                        align: "center",
+                        colspan: 1,
+                        rowspan: 2
+                    },
+                    {
+                        title: "美的",
+                        valign: "middle",
+                        align: "center",
+                        colspan: 2,
+                        rowspan: 1
+                    },
+                    {
+                        title: "松下",
+                        valign: "middle",
+                        align: "center",
+                        colspan: 2,
+                        rowspan: 1
+                    }
+                ],
+                [
+                    {
+                        field: 'mideaNum',
+                        title: '数量',
+                        valign: "middle",
+                        align: "center"
+                    },
+                    {
+                        field: 'mideaPercent',
+                        title: '占比',
+                        valign: "middle",
+                        align: "center"
+                    },
+                    {
+                        field: 'panasonicNum',
+                        title: '数量',
+                        valign: "middle",
+                        align: "center"
+                    },
+                    {
+                        field: 'panasonicPercent',
+                        title: '占比',
+                        valign: "middle",
+                        align: "center"
+                    }
+                ]
+            ]
+        })
+
+        //value代表该列的值，row代表当前对象
+        function formatSex(value, row, index) {
+            return value == 1 ? "男" : "女";
+            //或者 return row.sex == 1 ? "男" : "女";
+        }
+
+        //删除、编辑操作
+        function operation(value, row, index) {
+            var htm = "<button>删除</button><button>修改</button>"
+            return htm;
+        }
+
+        //查询按钮事件
+        $('#search_btn').click(function () {
+            $('#mytab').bootstrapTable('refresh', {
+                url: 'user/getUserListPage'
+            });
+        })
+    </script>
+
+}

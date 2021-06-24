@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Demo.JWT</name>
+    </assembly>
+    <members>
+        <member name="M:Demo.JWT.Controllers.HomeController.Get(System.Int32)">
+            <summary>
+            查询所有学员信息
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Demo.Common.JWT.JwtHelper.IssuseJwt(Demo.Entity.JWT.TokenModel)">
+            <summary>
+            颁发JWT令牌
+            </summary>
+            <param name="tokenModel"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

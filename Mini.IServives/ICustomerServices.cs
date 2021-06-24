@@ -1,0 +1,15 @@
+﻿using Mini.IServives.BASE;
+using Mini.Model.Entity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Mini.IServives
+{
+    public interface ICustomerServices : IBaseServices<Customer>
+    {
+        Task<List<Customer>> Query();
+    }
+}

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="5.0.1" />
+    <PackageReference Include="ServiceStack.Text" Version="5.11.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mini.Common\Mini.Common.csproj" />
+    <ProjectReference Include="..\Mini.Entity\Mini.Model.csproj" />
+    <ProjectReference Include="..\Mini.Extensions\Mini.Extensions.csproj" />
+    <ProjectReference Include="..\Mini.IServives\Mini.IServives.csproj" />
+    <ProjectReference Include="..\Mini.Repository\Mini.Repository.csproj" />
+    <ProjectReference Include="..\Mini.service\Mini.Services.csproj" />
+  </ItemGroup>
+
+</Project>

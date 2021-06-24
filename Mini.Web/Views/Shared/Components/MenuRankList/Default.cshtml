@@ -1,0 +1,27 @@
+﻿@model List<JG.Report.ViewCompoents.MenuRankList.Menu>
+
+<ul class="sidebar-menu" data-widget="tree">
+    <li class="header">主菜单</li>
+    <!-- Optionally, you can add icons to the links -->
+
+    @{
+        foreach (var item in Model)
+        {
+            <li class="treeview">
+                <a href="#"><i class="fa fa-link"></i> <span>@item.MenuName</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+                @*<li class="treeview"><a href="@item.MenuURL"><i class="fa fa-link"></i> <span>@item.MenuName</span></a></li>*@
+                @if (item.ChildrenMenu != null)
+                {
+                <ul class="treeview-menu">
+                    @{ 
+                        foreach (var itemChildren in item.ChildrenMenu)
+                        {
+                            <li><a href="javascript:void(0)" class="myLeftMenu" data="@Url.Content(@itemChildren.MenuURL)">@itemChildren.MenuName</a></li>
+                        }
+                    }
+                </ul>
+                }
+            </li>
+        }
+    }
+</ul>
