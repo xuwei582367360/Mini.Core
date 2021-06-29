@@ -186,7 +186,7 @@
                 dataType: option.dataType || "json",
                 beforeSend: function (xhr) {
                     debugger;
-                    var token = pack.isNullOrEmpty(localStorage.getItem("UserInfo")) ? " " : JSON.parse(localStorage.getItem("UserInfo")).access;
+                    var token = $.cookie("X-Token");
                     xhr.setRequestHeader('Authorization', 'Bearer ' + token);
                     pack.showLoading("正在处理中...");
                 },

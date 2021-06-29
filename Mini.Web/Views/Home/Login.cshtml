@@ -106,8 +106,6 @@
                     data: { "userName": userName, "passWord": passWord },
                     success: function (obj) {
                         if (obj.status == 200) {
-                            debugger;
-                            localStorage.setItem("UserInfo", JSON.stringify(obj.response));
                             //layer.msg("操作成功", { icon: 1, time: 1000, shift: 5 });
                             toastr.success(obj.msg);
                             setTimeout('redirectToIndex()', 2000);

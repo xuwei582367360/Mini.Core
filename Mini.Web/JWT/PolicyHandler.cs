@@ -132,11 +132,10 @@ namespace Mini.Web.JWT
             menuAuthorizeList.ForEach(x =>
             {
                 MenuInfo menuInfo = _menuInfoServices.Query(y => y.MenuId == x.MeunId).Result.FirstOrDefault();
-                menuList.Add(new Menu { Role = x.Authorized, Url = menuInfo.MenuURL });
+                menuList.Add(new Menu { Role = x.Authorized, Url = menuInfo.MenuURL,Authorize= menuInfo.Authorize });
             });
             //判断角色与 Url 是否对应(一个用户多个角色情况)
-            var menu = menuList.Where(x => role.Contains(x.Role) && url.Equals((x.Url?.ToLower()))).FirstOrDefault();
-
+            var menu = menuList.Where(x => role.Contains(x.Role) && (url.Equals(x.Url?.ToLower()) || url.ToLower().Replace('/', ':').TrimStart(':').Equals(x.Authorize))).FirstOrDefault();
             if (menu == null)
             {
                 context.Fail();
@@ -151,6 +150,7 @@ namespace Mini.Web.JWT
             public string Role { get; set; }
 
             public string Url { get; set; }
+            public string Authorize { get; set; }
         }
     }
 }

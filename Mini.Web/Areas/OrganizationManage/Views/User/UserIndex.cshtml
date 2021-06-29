@@ -3,6 +3,31 @@
     ViewData["Title"] = "UserIndex";
     Layout = "~/Views/Shared/_Index.cshtml";
 }
+<table id="table"></table>
 
-<h2>UserIndex</h2>
+<script type="text/javascript">
+        $('#table').bootstrapTable({
+            url: '@Url.Content("~/OrganizationManage/User/GetUserList")',        // 表格数据来源
+            columns: [{
+                field: 'userId',
+                title: '编号'
+            }, {
+                field: 'userName',
+                title: '名称'
+            }, {
+                field: 'createTime',
+                title: '创建时间'
+            }, {
+                field: 'isDelete',
+                title: '是否有效'
+                }],
+            responseHandler: function (res) {
+                debugger;
+                return {
+                    "total": res.dataCount,//总页数
+                    "rows": res.data //数据
+                };
+            }
+        });
+</script>
 

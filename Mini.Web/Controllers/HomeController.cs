@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Mini.Web.Controllers
 {
-    [Authorize(Policy = "Permission")]
+    
     public class HomeController : BaseController
     {
 
@@ -43,7 +43,7 @@ namespace Mini.Web.Controllers
         {
             if (!userName.IsNotEmptyOrNull())
             {
-                //跳转到登录页面
+                //跳转到登录页面（测试）
                 return View(nameof(Login));
             }
             //获取所有启用的菜单
@@ -76,7 +76,6 @@ namespace Mini.Web.Controllers
         /// <param name="userName"></param>
         /// <param name="passWord"></param>
         /// <returns></returns>
-        [AllowAnonymous]
         [HttpPost]
         public async Task<MessageModel<JwtResponseDto>> LoginJson(string userName = "", string passWord = "")
         {
@@ -97,13 +96,13 @@ namespace Mini.Web.Controllers
             };
             Response.Cookies.Append("X-Token", jwtresponse.Access, new CookieOptions
             {
-                HttpOnly = true,
+                HttpOnly = false,
                 Expires = jwt.Expires
             });
             return new MessageModel<JwtResponseDto> { msg = message.msg, status = message.status, response = jwtresponse };
         }
 
-
+        [Authorize(Policy = "Permission")]
         [HttpGet]
         public async Task<IActionResult> LoginOff()
         {
