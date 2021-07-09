@@ -26,7 +26,7 @@ namespace Mini.Web
             {
                 webBuilder
                 .UseStartup<Startup>()
-                .UseUrls("http://*:8081")
+                .UseUrls("http://*:5000")
                 .ConfigureLogging((hostingContext, builder) =>
                 {
                     // 1.过滤掉系统默认的一些日志
