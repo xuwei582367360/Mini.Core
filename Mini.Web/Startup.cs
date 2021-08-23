@@ -52,7 +52,7 @@ namespace Mini.Web
 
             services.AddControllers().AddControllersAsServices();
 
-            #region Configure Jwt Authentication
+            #region Configure Jwt Aut hentication
             services.AddSingleton<IAuthorizationHandler, PolicyHandler>();
             //Use Jwt bearer authentication
             //

@@ -43,6 +43,5 @@ namespace Mini.Web
                 });
             });
         }
-
     }
 }
